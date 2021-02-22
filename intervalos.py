@@ -52,9 +52,7 @@ def intervalos(coeficientes, raices, cifras_significativas):
 
 
 def main():
-    test = [(-inf, -1.3333333333333333), (0, inf)]
-    test = dict(test)
-    print(-inf in test)
+    print(intervalos([4, 6], [-2/3], 4))
 
 if __name__ == "__main__":
     main()
