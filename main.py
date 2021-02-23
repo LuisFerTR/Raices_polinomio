@@ -10,6 +10,9 @@
 # -> Los intervalos en que la función es creciente y en que es decreciente.
 # -> Los intervalos en que la función es cóncava hacia arriba y en que es cóncava hacia abajo.
 
+# TODO: Corregir error de máximos y mínimos, prueba con grado = 3, coeficientes = [0, 0, 2, 1], cifras_significativas = 3
+# TODO: Redonear raíces a cifras_significativas
+
 from horner import horner
 from derivar import derivar
 from intervalos import intervalos
@@ -52,6 +55,12 @@ raices_polinomio = bairstow(coeficientes, r1, s1, error)
 raices_primera_derivada = bairstow(primera_derivada, r2, s2, error)
 raices_segunda_derivada = bairstow(segunda_derivada, r3, s3, error)
 
+# Raíces reales de la función derivada
+raices_reales_primera_derivada = [x for x in raices_primera_derivada if type(x) is not complex]
+raices_reales_primera_derivada.sort()
+raices_reales_segunda_derivada = [x for x in raices_segunda_derivada if type(x) is not complex]
+raices_reales_segunda_derivada.sort()
+
 # Los intervalos en que la función es creciente y en que es decreciente.
 intervalos_crecimiento = intervalos(primera_derivada, raices_primera_derivada, 
 cifras_significativas)
@@ -68,15 +77,15 @@ dict_positivos = dict(intervalos_crecimiento["positivo"])
 # y el siguiente punto crítico es un mínimo y el siguiente un
 # máximo y así sucesivamente.
 if -inf in dict_positivos:
-	for i in range(len(raices_primera_derivada)):
-		x = raices_primera_derivada[i]
+	for i in range(len(raices_reales_primera_derivada)):
+		x = raices_reales_primera_derivada[i]
 		if i % 2 == 0:
 			maximos.append((x, horner(grado, coeficientes, x)))
 		else:
 			minimos.append((x, horner(grado, coeficientes, x)))
 else: 
-	for i in range(len(raices_primera_derivada)):
-		x = raices_primera_derivada[i]
+	for i in range(len(raices_reales_primera_derivada)):
+		x = raices_reales_primera_derivada[i]
 		if i % 2 == 0:
 			minimos.append((x, horner(grado, coeficientes, x)))
 		else:
@@ -85,7 +94,7 @@ else:
 # Las coordenadas de los puntos de inflexión.
 coord_inflexion = []
 
-for x in raices_segunda_derivada:
+for x in raices_reales_segunda_derivada:
 	coord_inflexion.append((x, horner(grado, coeficientes, x)))
 
 # Los intervalos en que la función es cóncava hacia arriba y en que es cóncava 
