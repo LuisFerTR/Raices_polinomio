@@ -4,7 +4,7 @@
 import math
 import cmath
 
-def raiz_cuadrada(r, s):
+def formula_cuadratica_bairstow(r, s):
     """
     Función para hallar las raíces de un polinomio 
     de grado 2
@@ -13,7 +13,9 @@ def raiz_cuadrada(r, s):
 
     discriminante = r*r + 4*s
 
-    if discriminante > 0: # raíces reales
+    if discriminante == 0: # solo tiene una raíz
+        raices.append(r/2.0)
+    elif discriminante > 0: # raíces reales
         raices.append((r + math.sqrt(discriminante))/2.0)
         raices.append((r - math.sqrt(discriminante))/2.0)
     else: # raíces imaginarias
@@ -22,12 +24,14 @@ def raiz_cuadrada(r, s):
 
     return raices
 
-def raiz_cuadrada2(a, b, c):
+def formula_cuadratica2(a, b, c):
     raices = []
 
     discriminante = b*b - 4.0*a*c
 
-    if discriminante > 0: # raíces reales
+    if discriminante == 0: # solo tiene una raíz
+        raices.append(-b/2.0)
+    elif discriminante > 0: # raíces reales
         raices.append((-b + math.sqrt(discriminante))/(2.0*a))
         raices.append((-b - math.sqrt(discriminante))/(2.0*a))
     else: # raíces imaginarias
@@ -64,53 +68,61 @@ def bairstow(a, r, s, error):
     error: Tolerancia de error
     """
     grado = len(a) - 1
-    no_iter = 0 # Observar cuantas iteraciones hace
+    num_iter = 0 # Observar cuantas iteraciones hace
     max_iteraciones = 100
     raices = []
     b = []
 
     while grado > 0:
-        no_iter = 0
-        r_error = 0
-        s_error = 0
+        num_iter = 0
+        r_error = 100
+        s_error = 100
 
         if grado == 1:
             raices.append(-float(a[0])/float(a[1]))
             grado -= 1
 
         elif grado == 2:
-            raices.extend(raiz_cuadrada2(a[2], a[1], a[0]))
+            raices.extend(formula_cuadratica2(a[2], a[1], a[0]))
             grado -= 2
 
         else:
-            while r_error > error or s_error > error or no_iter < max_iteraciones:
+            while (r_error > error or s_error > error) and num_iter < max_iteraciones:
                 b = generar_b(a, r, s)
                 c = generar_c(b, r, s) 
 
                 # Solución del sistema por regla de cramer
                 determinante = c[2]*c[2] - c[3]*c[1]
 
-                dr = (-b[1]*c[2] + c[3]*b[0])/determinante
-                ds = (-b[0]*c[2] + c[1]*b[1])/determinante
+                if determinante != 0:
+                    dr = (-b[1]*c[2] + c[3]*b[0])/determinante
+                    ds = (-b[0]*c[2] + c[1]*b[1])/determinante
 
-                r += dr
-                s += ds
+                    r += dr
+                    s += ds
 
-                # Errores relativos de r y s
-                r_error = abs(dr/r)*100
-                s_error = abs(ds/s)*100
+                    # Errores relativos de r y s
+                    if r != 0:
+                        r_error = abs(dr/r)*100
+                    
+                    if s != 0:
+                        s_error = abs(ds/s)*100
 
-                no_iter += 1
+                    num_iter += 1
+                else: 
+                    r += 1
+                    s += 1
+                    num_iter = 0
             
             a = b[2:]
             grado -= 2
-            raices.extend(raiz_cuadrada(r, s))
+            raices.extend(formula_cuadratica_bairstow(r, s))
 
     return raices
 
 
 def main():
-    print(bairstow([0, 0, 2, 1], 1, 1, 1))
+    print(bairstow([0, 0, 2, 1], 0, 0, 1))
 
 if __name__ == "__main__":
     main()
