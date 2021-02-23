@@ -79,7 +79,9 @@ def bairstow(a, r, s, error):
         s_error = 100
 
         if grado == 1:
-            raices.append(-float(a[0])/float(a[1]))
+            raiz = -float(a[0])/float(a[1])
+            raiz = raiz if raiz != -0 else 0
+            raices.append(raiz)
             grado -= 1
 
         elif grado == 2:

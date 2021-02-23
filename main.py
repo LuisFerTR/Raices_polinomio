@@ -34,10 +34,23 @@ segunda_derivada = derivar(primera_derivada)
 # Leer cifras significativas
 cifras_significativas = int(input("Introduce la cantidad de cifras significativas: "))
 
+# Valores iniciales aproximados
+r1 = coeficientes[0]/coeficientes[-1]
+s1 = r1
+
+r2 = primera_derivada[0]/primera_derivada[-1]
+s2 = r2
+
+r3 = segunda_derivada[0]/segunda_derivada[-1]
+s3 = r3
+
+# Error en %
+error = 1
+
 # Todas las raíces reales y complejas.
-raices_polinomio = [1j, -1j]  # bairstow()
-raices_primera_derivada = [0] # bairstow()
-raices_segunda_derivada = [0] #bairstow()
+raices_polinomio = bairstow(coeficientes, r1, s1, error)
+raices_primera_derivada = bairstow(primera_derivada, r2, s2, error)
+raices_segunda_derivada = bairstow(segunda_derivada, r3, s3, error)
 
 # Los intervalos en que la función es creciente y en que es decreciente.
 intervalos_crecimiento = intervalos(primera_derivada, raices_primera_derivada, 

@@ -26,27 +26,34 @@ def intervalos(coeficientes, raices, cifras_significativas):
     raices = [x for x in raices if type(x) is not complex]
     raices.sort()
 
-    # Para la primera raíz
-    valor_prueba = raices[0] - random()
-    if (horner(grado, coeficientes, valor_prueba) < 0):
-        resultados["negativo"].append((-inf, raices[0]))
-    else:
-        resultados["positivo"].append((-inf, raices[0]))
-
-    # Cualquier otra raíz
-    for i in range(0, len(raices)-1):
-        valor_prueba = round(uniform(raices[i], raices[i+1]), cifras_significativas)
-        if (horner(grado, coeficientes, valor_prueba) < 0):
-            resultados["negativo"].append((raices[i], raices[i+1]))
+    if raices: # Sí hay raíces reales
+        # Para la primera raíz
+        valor_prueba = raices[0] - random()
+        if horner(grado, coeficientes, valor_prueba) < 0:
+            resultados["negativo"].append((-inf, raices[0]))
         else:
-            resultados["positivo"].append((raices[i], raices[i+1]))
+            resultados["positivo"].append((-inf, raices[0]))
 
-    # Para la última raíz
-    valor_prueba = raices[len(raices)-1] + random()
-    if (horner(grado, coeficientes, valor_prueba) < 0):
-        resultados["negativo"].append((raices[len(raices)-1], inf))
+        # Cualquier otra raíz
+        for i in range(0, len(raices)-1):
+            valor_prueba = round(uniform(raices[i], raices[i+1]), cifras_significativas)
+            if horner(grado, coeficientes, valor_prueba) < 0:
+                resultados["negativo"].append((raices[i], raices[i+1]))
+            else:
+                resultados["positivo"].append((raices[i], raices[i+1]))
+
+        # Para la última raíz
+        valor_prueba = raices[len(raices)-1] + random()
+        if horner(grado, coeficientes, valor_prueba) < 0:
+            resultados["negativo"].append((raices[len(raices)-1], inf))
+        else:
+            resultados["positivo"].append((raices[len(raices)-1], inf))
     else:
-        resultados["positivo"].append((raices[len(raices)-1], inf))
+        if coeficientes[0] < 0:
+            resultados["negativo"].append((-inf, inf))
+        else:
+            resultados["positivo"].append((-inf, inf))
+
 
     return resultados
 
