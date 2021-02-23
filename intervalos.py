@@ -26,6 +26,9 @@ def intervalos(coeficientes, raices, cifras_significativas):
     raices = [x for x in raices if type(x) is not complex]
     raices.sort()
 
+    for i in range(len(raices)):
+        raices[i] = round(raices[i], cifras_significativas)
+
     if raices: # Sí hay raíces reales
         # Para la primera raíz
         valor_prueba = raices[0] - random()

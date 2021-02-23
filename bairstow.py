@@ -61,11 +61,11 @@ def generar_c(b, r, s):
     return c
 
 
-def bairstow(a, r, s, error):
+def bairstow(a, r, s, tolerancia):
     """
     a: Lista de coeficientes del polinomio
     r y s: Aproximaciones iniciales
-    error: Tolerancia de error
+    tolerancia: Tolerancia de error
     """
     grado = len(a) - 1
     num_iter = 0 # Observar cuantas iteraciones hace
@@ -89,7 +89,7 @@ def bairstow(a, r, s, error):
             grado -= 2
 
         else:
-            while (r_error > error or s_error > error) and num_iter < max_iteraciones:
+            while (r_error > tolerancia or s_error > tolerancia) and num_iter < max_iteraciones:
                 b = generar_b(a, r, s)
                 c = generar_c(b, r, s) 
 
