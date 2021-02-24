@@ -113,7 +113,12 @@ cifras_significativas)
 print()
 print("Las raíces del polinomio son:")
 for x in raices_polinomio:
-	print(round(x, cifras_significativas), end=", ")
+	if type(x) != complex:
+		print(round(x, cifras_significativas), end=", ")
+	else:
+		rounded_x = complex(round(x.real, cifras_significativas),
+							round(x.imag, cifras_significativas))
+		print(rounded_x, end=", ")
 
 print() 
 
