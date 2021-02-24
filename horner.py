@@ -18,9 +18,12 @@ def horner(grado, coeficientes, x):
 	# Al término de este ciclo WHILE, la variable polinomio tiene el valor del P(x)
     return polinomio
 
+""" 
+# Zona de pruebas
 def main():
     print(horner(3, [1, 2, 3, 1], 2.5))
 
 
 if __name__ == "__main__":
     main()
+ """

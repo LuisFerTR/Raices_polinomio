@@ -1,4 +1,8 @@
 # coding: utf8
+# Métodos numéricos 15-16
+# Luis Fernando Talavera Rivera
+# Fecha: 24/02/2021
+#
 # Programa que deriva un polinomio de grado n
 # Recibe de entrada una lista de n coeficientes del polinomio
 # Regresa una lista con n - 1 coeficientes de la derivada del polinomio
@@ -18,8 +22,11 @@ def derivar(coeficientes):
 
     return d_coeficientes
 
+""" 
+# Zona de pruebas
 def main():
     print(derivar([1, 2, 0, 3]))
 
 if __name__ == "__main__":
     main()
+ """

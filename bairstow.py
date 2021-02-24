@@ -1,3 +1,8 @@
+# coding: utf8
+# Métodos numéricos 15-16
+# Luis Fernando Talavera Rivera
+# Fecha: 24/02/2021
+#
 # Programa que calcula las raíces (reales o complejas)
 # de un polinomio por medio del método de Bairstow
 
@@ -122,9 +127,11 @@ def bairstow(a, r, s, tolerancia):
 
     return raices
 
-
+""" 
+# Zona de pruebas
 def main():
     print(bairstow([0, 0, 2, 1], 0, 0, 1))
 
 if __name__ == "__main__":
-    main()
+    main() 
+"""

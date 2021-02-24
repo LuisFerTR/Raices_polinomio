@@ -1,4 +1,8 @@
 # coding: utf8
+# Métodos numéricos 15-16
+# Luis Fernando Talavera Rivera
+# Fecha: 24/02/2021
+#
 # Programa que dado un polinomio y sus raíces 
 # evalúa el polinomio en intervalos y almacena
 # el signo del polinomio en ese intervalo, re-
@@ -46,11 +50,11 @@ def intervalos(coeficientes, raices, cifras_significativas):
                 resultados["positivo"].append((raices[i], raices[i+1]))
 
         # Para la última raíz
-        valor_prueba = raices[len(raices)-1] + random()
+        valor_prueba = raices[-1] + random()
         if horner(grado, coeficientes, valor_prueba) < 0:
-            resultados["negativo"].append((raices[len(raices)-1], inf))
+            resultados["negativo"].append((raices[-1], inf))
         else:
-            resultados["positivo"].append((raices[len(raices)-1], inf))
+            resultados["positivo"].append((raices[-1], inf))
     else:
         if coeficientes[0] < 0:
             resultados["negativo"].append((-inf, inf))
@@ -61,9 +65,11 @@ def intervalos(coeficientes, raices, cifras_significativas):
     return resultados
 
 
+""" 
+# Zona de pruebas
 def main():
     print(intervalos([4, 6], [-2/3], 4))
 
 if __name__ == "__main__":
     main()
-
+ """

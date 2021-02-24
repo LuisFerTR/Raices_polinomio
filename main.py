@@ -1,17 +1,19 @@
+# coding: utf8
+# Métodos numéricos 15-16
+# Luis Fernando Talavera Rivera
+# Fecha: 24/02/2021
+#
 # Programa principal que lee un polinomio de grado n > 0 y localiza sus puntos notables.
 # El programa tendrá las entradas
 # Grado ->
 # Coeficientes ->
 # Cifras significativas ->
 # y entregará como resultado
-# Todas las raíces reales y complejas.
+# -> Todas las raíces reales y complejas.
 # -> Las coordenadas de los extremos locales y su tipo (máximo o mínimo).
 # -> Las coordenadas de los puntos de inflexión.
 # -> Los intervalos en que la función es creciente y en que es decreciente.
 # -> Los intervalos en que la función es cóncava hacia arriba y en que es cóncava hacia abajo.
-
-# TODO: Corregir tolerancia de máximos y mínimos, prueba con grado = 3, coeficientes = [0, 0, 2, 1], cifras_significativas = 3
-# TODO: Redonear raíces a cifras_significativas
 
 from horner import horner
 from derivar import derivar
@@ -85,6 +87,7 @@ if -inf in dict_positivos:
 		else:
 			minimos.append((round(x, cifras_significativas), 
 							round(horner(grado, coeficientes, x), cifras_significativas)))
+else:
 	for i in range(len(raices_reales_primera_derivada)):
 		x = raices_reales_primera_derivada[i]
 		if i % 2 == 0:
